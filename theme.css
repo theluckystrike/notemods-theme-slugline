@@ -1,0 +1,157 @@
+/* slugline — screenplay-flavored notes. Mono body, ruled scene headings.
+   Original CSS, MIT. No network assets. */
+
+:root {
+  --u2-ink: #1f2a2e;
+  --u2-paper: #f2f4f2;
+  --u2-cyan: #0d5a63;
+  --u2-font-script: "Courier Prime", Courier, "Nimbus Mono PS", monospace;
+  --u2-font-ui: -apple-system, "Segoe UI", sans-serif;
+}
+
+.theme-light {
+  --u2-bg: #f2f4f2;
+  --u2-bg-soft: #e6ebe8;
+  --u2-text: #1f2a2e;            /* ~13:1 on --u2-bg */
+  --u2-text-muted: #55666a;
+  --u2-link: #0b5560;            /* ~6.6:1 on --u2-bg */
+  --u2-focus: #0d5a63;
+  --u2-border: #c2cdc9;
+  --u2-rule: rgba(31, 42, 46, 0.35);
+}
+
+.theme-dark {
+  --u2-bg: #15191b;
+  --u2-bg-soft: #1d2326;
+  --u2-text: #dde4e2;            /* ~12:1 on --u2-bg */
+  --u2-text-muted: #8fa1a3;
+  --u2-link: #7fd1da;            /* ~9:1 on --u2-bg */
+  --u2-focus: #7fd1da;
+  --u2-border: #333d41;
+  --u2-rule: rgba(221, 228, 226, 0.3);
+}
+
+.theme-light, .theme-dark {
+  --background-primary: var(--u2-bg);
+  --background-secondary: var(--u2-bg-soft);
+  --text-normal: var(--u2-text);
+  --text-muted: var(--u2-text-muted);
+  --link-color: var(--u2-link);
+  --text-accent: var(--u2-link);
+  --interactive-accent: var(--u2-focus);
+  --border-color: var(--u2-border);
+  --background-modifier-border: var(--u2-border);
+  --divider-color: var(--u2-rule);
+  --background-modifier-border-hover: var(--u2-focus);
+  --background-modifier-border-focus: var(--u2-focus);
+  --input-focus-border-color: var(--u2-focus);
+  --font-monospace: var(--u2-font-script);
+}
+
+/* Body: monospace script, fixed-ish measure like a screenplay page */
+.markdown-source-view.mod-cm6 .cm-scroller,
+.markdown-preview-view {
+  font-family: var(--u2-font-script);
+  font-size: 0.95em;
+  line-height: 1.55;
+}
+.markdown-source-view.is-readable-line-width .cm-sizer,
+.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
+  max-width: 36rem;
+}
+
+/* Headings: uppercase "scene headings" with rule above and below */
+.markdown-rendered h1, .markdown-rendered h2, .markdown-rendered h3,
+.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6,
+.HyperMD-header {
+  font-family: var(--u2-font-script);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  border-top: 1px solid var(--u2-rule);
+  border-bottom: 1px solid var(--u2-rule);
+  padding-block: 0.25em;
+  margin-top: 1.6em;
+}
+.markdown-rendered h1 { font-size: 1.75em; letter-spacing: 0.14em; }
+.markdown-rendered h2 { font-size: 1.4em; }
+.markdown-rendered h3, .markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6 {
+  border-top: none;
+  font-size: 1.18em;
+}
+.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6 { font-size: 1.05em; }
+
+/* Paragraphs: script-style leading, no indent */
+.markdown-rendered p { margin-block: 0.75em; }
+
+/* Lists: tight mono lists with square markers */
+.markdown-rendered ul, .markdown-rendered ol { padding-inline-start: 1.8em; }
+.markdown-rendered li { margin-block: 0.15em; }
+.markdown-rendered ul > li::marker { content: "▪ "; color: var(--u2-link); }
+
+/* Tasks: bracket checkboxes, screenplay revision style */
+.markdown-rendered .task-list-item-checkbox {
+  appearance: none;
+  width: 1em; height: 1em;
+  border: 1.5px solid var(--u2-text);
+  border-radius: 0;
+  background: transparent;
+}
+.markdown-rendered .task-list-item-checkbox:checked {
+  background: var(--u2-link);
+  box-shadow: inset 0 0 0 2px var(--u2-bg);
+}
+
+/* Callouts: double-bordered scene boxes */
+.callout {
+  background: transparent;
+  border: 1px solid var(--u2-text-muted);
+  outline: 1px solid var(--u2-rule);
+  outline-offset: 3px;
+  border-radius: 0;
+  padding: 0.8em 1em;
+  mix-blend-mode: normal;
+}
+.callout-title {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85em;
+}
+
+/* Code: same family, boxed */
+.markdown-rendered :not(pre) > code { background: var(--u2-bg-soft); border-radius: 0; }
+.markdown-rendered pre {
+  border: 1px dashed var(--u2-border);
+  border-radius: 0;
+  background: var(--u2-bg-soft);
+}
+
+/* Tables: ruled script pages */
+.markdown-rendered table { border-collapse: collapse; }
+.markdown-rendered th, .markdown-rendered td { border: 1px solid var(--u2-border); }
+
+/* Links and focus */
+.markdown-rendered a, .cm-s-obsidian .cm-hmd-internal-link { color: var(--u2-link); }
+:is(.workspace, .markdown-rendered, .cm-s-obsidian) :focus-visible {
+  outline: 2px dashed var(--u2-focus);
+  outline-offset: 2px;
+}
+
+/* Tabs/nav/search/settings: monochrome chrome, controls visible */
+.workspace-tab-header.is-active .workspace-tab-header-inner { color: var(--u2-link); }
+.nav-file-title.is-active, .nav-folder-title.is-active { background: var(--u2-bg-soft); }
+.search-result-file-title { color: var(--u2-text); }
+input[type="text"], input[type="search"] { font-family: var(--u2-font-ui); }
+
+::selection { background: rgba(13, 90, 99, 0.22); }
+
+/* Narrow layouts: scroll wide mono content instead of clipping it */
+@media (max-width: 640px) {
+  .markdown-rendered pre { overflow-x: auto; padding: 0.7em; }
+  .markdown-rendered table { display: block; overflow-x: auto; }
+  .callout { padding: 0.6em 0.8em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
